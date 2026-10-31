@@ -8,6 +8,7 @@ from porta_llm.fala import Fala
 from porta_llm.pedido import Pedido
 from porta_llm.porta import PortaLLM
 from porta_llm.provedor import Provedor
+from porta_llm.provedor_openai import ProvedorOpenAI
 from porta_llm.resposta import Resposta
 
-__all__ = ["ErroLLM", "Fala", "Pedido", "PortaLLM", "Provedor", "Resposta"]
+__all__ = ["ErroLLM", "Fala", "Pedido", "PortaLLM", "Provedor", "ProvedorOpenAI", "Resposta"]
