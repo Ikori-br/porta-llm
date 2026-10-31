@@ -137,8 +137,16 @@ async def test_19_traduz_os_erros(roteiro, motivo, detalhe):
         httpx.Response(200, json={"model": "deepseek-flash", "choices": []}),
         httpx.Response(200, json={"algo": "diferente"}),
         httpx.Response(200, text="<html>não é JSON</html>"),
+        httpx.Response(
+            200,
+            json={
+                "model": 123,
+                "choices": [{"message": {"content": 5}}],
+                "usage": {"prompt_tokens": "muitos", "completion_tokens": -3},
+            },
+        ),
     ],
-    ids=["texto_nulo", "sem_escolhas", "corpo_diferente", "corpo_que_nao_e_json"],
+    ids=["texto_nulo", "sem_escolhas", "corpo_diferente", "corpo_que_nao_e_json", "tipos_estranhos"],
 )
 async def test_20_resposta_200_sem_texto_vira_resposta_vazia(resposta_estranha):
     provedor, servidor = montar(resposta_estranha)

@@ -67,10 +67,17 @@ class ProvedorOpenAI(Provedor):
             texto = corpo["choices"][0]["message"]["content"] or ""
         except (KeyError, IndexError, TypeError):
             texto = ""
-        uso = corpo.get("usage") or {}
+        modelo = corpo.get("model")
+        uso = corpo.get("usage")
+        uso = uso if isinstance(uso, dict) else {}
+        # Um campo com o tipo estranho vira o padrão, em vez de derrubar a chamada.
         return Resposta(
             texto=texto if isinstance(texto, str) else "",
-            modelo=corpo.get("model") or self.modelo,
-            tokens_entrada=uso.get("prompt_tokens") or 0,
-            tokens_saida=uso.get("completion_tokens") or 0,
+            modelo=modelo if isinstance(modelo, str) and modelo else self.modelo,
+            tokens_entrada=_numero(uso.get("prompt_tokens")),
+            tokens_saida=_numero(uso.get("completion_tokens")),
         )
+
+
+def _numero(valor) -> int:
+    return valor if isinstance(valor, int) and valor >= 0 else 0

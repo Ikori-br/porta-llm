@@ -4,7 +4,7 @@ A Porta da LLM: o único lugar que chama uma LLM. Quem usa entrega um pedido pro
 
 É uma **biblioteca de Python**: o projeto que usa instala e importa, e ela roda dentro dele. Nasceu para o motor do chatbot Ikori, mas não sabe nada dele, e serve para qualquer projeto.
 
-> **Em construção.** Etapa 1: as peças estão prontas (passos 1 a 5). Faltam o teste do caminho completo e o envio para o GitHub. O desenho está na ficha 08 do projeto.
+> **Versão 0.1.0, etapa 1 do projeto.** A Porta está pronta e testada sem rede. A primeira chamada a uma LLM de verdade e a instalação no motor ficam para a etapa 3. O desenho está na ficha 08 do projeto.
 
 ```
  quem usa (o motor, por exemplo)
@@ -81,8 +81,8 @@ A Porta lê as variáveis `LLM_` do ambiente de quem usa. No servidor, quem entr
 |---|---|
 | A LLM demorou mais de 30 s, a rede caiu, ou a LLM respondeu 429 (pedidos demais) ou 5xx (fora do ar) | Tenta de novo, até 3 vezes no total, com uma pausa de 2 s e depois de 5 s. Se as 3 falharem, dá `ErroLLM` com o motivo `fora_do_ar` |
 | 401 ou 403: a chave está errada | `ErroLLM` com o motivo `chave_errada` na hora, sem tentar de novo |
-| 400, 404 ou 422: o pedido foi recusado (um modelo que não existe, por exemplo) | `ErroLLM` com o motivo `pedido_recusado` na hora, sem tentar de novo |
-| O JSON veio quebrado, vazio, faltando campo ou com um tipo errado | Pede de novo uma vez, dizendo à LLM quais campos vieram errados. Se errar de novo, dá `ErroLLM` com o motivo `resposta_invalida` |
+| 400, 402, 404, 422 ou outro 4xx: o pedido foi recusado (um modelo que não existe ou, no DeepSeek, o 402 de conta sem saldo) | `ErroLLM` com o motivo `pedido_recusado` na hora, sem tentar de novo |
+| A resposta veio vazia, ou o JSON veio quebrado, faltando campo ou com um tipo errado | Pede de novo uma vez, dizendo à LLM o que veio errado. Se errar de novo, dá `ErroLLM` com o motivo `resposta_invalida` |
 
 - **Um erro só, com o motivo.** O `ErroLLM` tem o `motivo` (um dos quatro acima) e o `detalhe` (como `http_503`). Quem usa decide o que fazer com cada motivo.
 - **O pior caso:** um pedido pode levar uns 97 s (3 tentativas de 30 s e as pausas), e o dobro se o JSON vier errado.
