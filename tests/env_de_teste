@@ -1,0 +1,6 @@
+# O .env de teste. A chave é falsa e não serve para nada fora dos testes.
+# Os testes procuram por ela no log e nos erros, para provar que ela nunca aparece.
+LLM_FORMATO=openai
+LLM_URL=https://api.exemplo.com
+LLM_MODELO=modelo-de-teste
+LLM_CHAVE=chave-de-teste

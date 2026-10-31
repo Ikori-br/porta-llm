@@ -4,7 +4,7 @@ A Porta da LLM: o único lugar que chama uma LLM. Quem usa entrega um pedido pro
 
 É uma **biblioteca de Python**: o projeto que usa instala e importa, e ela roda dentro dele. Nasceu para o motor do chatbot Ikori, mas não sabe nada dele, e serve para qualquer projeto.
 
-> **Em construção.** Etapa 1, passo 1: por enquanto só existem este README e o esqueleto. As peças chegam nos passos 2 a 5. O desenho está na ficha 08 do projeto.
+> **Em construção.** Etapa 1: as peças estão prontas (passos 1 a 5). Faltam o teste do caminho completo e o envio para o GitHub. O desenho está na ficha 08 do projeto.
 
 ```
  quem usa (o motor, por exemplo)
@@ -27,7 +27,7 @@ A Porta da LLM: o único lugar que chama uma LLM. Quem usa entrega um pedido pro
 ```python
 from porta_llm import Fala, Pedido, criar_porta
 
-porta = criar_porta()  # lê LLM_FORMATO, LLM_URL, LLM_MODELO e LLM_CHAVE do .env
+porta = criar_porta()  # lê LLM_FORMATO, LLM_URL, LLM_MODELO e LLM_CHAVE do ambiente
 
 resposta = await porta.chamar(Pedido(
     agente="interprete",
@@ -66,7 +66,7 @@ await porta.fechar()    # quando o projeto desliga
 
 ## Configuração
 
-A Porta lê do `.env` de quem usa:
+A Porta lê as variáveis `LLM_` do ambiente de quem usa. No servidor, quem entrega essas variáveis é o Docker Compose, a partir do `.env`. Para testar, dá para apontar um arquivo: `ConfigLLM(_env_file="caminho/do/arquivo")`.
 
 | Variável | O que é | Padrão |
 |---|---|---|
