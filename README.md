@@ -89,7 +89,7 @@ A Porta lê do `.env` de quem usa:
 
 ## O que a Porta nunca faz
 
-- Não sabe nada de quem usa: nem do motor, nem do questionário, nem do Flore.
+- Não sabe nada de quem usa: nem do motor, nem dos questionários, nem do método.
 - Não guarda nada em banco. Ela devolve os tokens e o tempo, e quem usa decide se guarda.
 - Não escreve no log a chave, o texto das falas, o texto da resposta nem os valores que vieram errados.
 - Não configura o log de quem usa: ela só escreve no logger `porta-llm`.
