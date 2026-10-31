@@ -2,3 +2,10 @@
 
 As peças entram aqui conforme forem construídas (ficha 08, passos 2 a 5).
 """
+
+from porta_llm.erro_llm import ErroLLM
+from porta_llm.fala import Fala
+from porta_llm.pedido import Pedido
+from porta_llm.resposta import Resposta
+
+__all__ = ["ErroLLM", "Fala", "Pedido", "Resposta"]
