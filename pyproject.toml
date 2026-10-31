@@ -1,0 +1,29 @@
+# O pacote da Porta da LLM. Quem usa instala com o pip e importa "porta_llm".
+
+[build-system]
+requires = ["setuptools>=70"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "porta-llm"
+version = "0.1.0"
+description = "A Porta da LLM: chama a LLM, tenta de novo, confere o JSON e escreve o log."
+readme = "README.md"
+requires-python = ">=3.12"
+# A partir das versões que o motor já usa, para não brigar quando ele instalar a Porta.
+# Quem instala fixa a versão exata no próprio projeto.
+dependencies = [
+    "httpx>=0.28.1,<0.29",
+    "pydantic>=2.14,<3",
+    "pydantic-settings>=2.16,<3",
+]
+
+[project.optional-dependencies]
+# Só para rodar os testes: pip install -e ".[dev]"
+dev = ["pytest==9.1.1"]
+
+[tool.setuptools]
+packages = ["porta_llm"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

@@ -1,0 +1,20 @@
+# Roda todos os testes a cada envio para o GitHub. Se algo falhar, o envio fica marcado de vermelho.
+# Os testes não usam a internet nem a chave da LLM, então nenhum segredo fica no GitHub.
+name: testes
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  testes:
+    runs-on: ubuntu-latest
+    # Se algum teste travar, o GitHub para em 10 minutos, em vez de esperar 6 horas.
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+      - run: pip install -e ".[dev]"
+      - run: pytest
